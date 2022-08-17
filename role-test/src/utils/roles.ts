@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Contains all role definitions
+ */
+
 type RoleConfigs = typeof roles[number];
 // role property -> 'value'.
 type RoleConfigValueProperty = keyof Pick<RoleConfigs, 'value'>;

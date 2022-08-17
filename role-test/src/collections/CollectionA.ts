@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload/types';
 import { accessControl } from '../utils/accessControl';
+import { addCreatedBy } from '../utils/addCreatedBy';
 
 export const CollectionA: CollectionConfig = {
   slug: 'collection-a',
@@ -10,13 +11,7 @@ export const CollectionA: CollectionConfig = {
     read: accessControl('a'),
   },
   hooks: {
-    beforeChange: [
-      ({ req, operation, data }) => {
-        if (operation === 'create' && req.user) {
-          data.createdBy = req.user.id;
-        }
-      },
-    ],
+    beforeChange: [addCreatedBy],
   },
   fields: [
     {
