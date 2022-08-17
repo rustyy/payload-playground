@@ -1,20 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-
-const accessControl = ({ req: { user } }) => {
-  if (!user) {
-    return false;
-  }
-
-  if (user.role === 'admin') {
-    return true;
-  }
-
-  if (user.role !== 'b') {
-    return false;
-  }
-
-  return { createdBy: { equals: user.id } };
-};
+import { accessControl } from '../utils/accessControl';
 
 export const CollectionB: CollectionConfig = {
   slug: 'collection-b',
@@ -22,7 +7,7 @@ export const CollectionB: CollectionConfig = {
     useAsTitle: 'title',
   },
   access: {
-    read: accessControl,
+    read: accessControl('b'),
   },
   hooks: {
     beforeChange: [
