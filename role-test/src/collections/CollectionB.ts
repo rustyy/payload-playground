@@ -1,12 +1,24 @@
 import { CollectionConfig } from 'payload/types';
 
+const accessControl = ({ req: { user } }) => {
+  if (!user) {
+    return false;
+  }
+
+  if (user.role === 'admin') {
+    return true;
+  }
+
+  return { createdBy: { equals: user.id } };
+};
+
 export const CollectionB: CollectionConfig = {
   slug: 'collection-b',
   admin: {
     useAsTitle: 'title',
   },
   access: {
-    read: ({ req: { user } }) => ['admin', 'b'].includes(user.role),
+    read: accessControl,
   },
   hooks: {
     beforeChange: [
@@ -28,21 +40,6 @@ export const CollectionB: CollectionConfig = {
       name: 'createdBy',
       type: 'relationship',
       relationTo: 'users',
-      access: {
-        // @ts-ignore
-        read: ({ req: { user } }) => {
-          if (!user) {
-            return false;
-          }
-
-          if (user.role === 'admin') {
-            return true;
-          }
-
-          return { createdBy: { equals: user.id } };
-        },
-        update: () => false,
-      },
       admin: {
         readOnly: true,
         position: 'sidebar',
