@@ -9,6 +9,10 @@ const accessControl = ({ req: { user } }) => {
     return true;
   }
 
+  if (user.role !== 'b') {
+    return false;
+  }
+
   return { createdBy: { equals: user.id } };
 };
 
