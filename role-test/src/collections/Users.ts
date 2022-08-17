@@ -1,4 +1,6 @@
+import { OptionObject } from 'payload/dist/fields/config/types';
 import { CollectionConfig } from 'payload/types';
+import { defaultRole, roles } from '../utils/roles';
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -16,25 +18,8 @@ const Users: CollectionConfig = {
       name: 'role',
       type: 'select',
       required: true,
-      options: [
-        {
-          label: 'Admin',
-          value: 'admin',
-        },
-        {
-          label: 'User',
-          value: 'user',
-        },
-        {
-          label: 'Group A',
-          value: 'a',
-        },
-        {
-          label: 'Group B',
-          value: 'b',
-        },
-      ],
-      defaultValue: 'user',
+      options: roles as unknown as OptionObject[],
+      defaultValue: defaultRole,
     },
   ],
 };

@@ -1,8 +1,10 @@
+import { isRole, Role } from './roles';
+
 export const accessControl =
-  (role: 'a' | 'b') =>
+  (role: Role) =>
   ({ req: { user } }) => {
-    // no user, no access.
-    if (!user) {
+    // no user, no access or unsupported role provided.
+    if (!user || !isRole(role)) {
       return false;
     }
 
