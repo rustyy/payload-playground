@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "new": "npx create-payload-app"
+  },
   "devDependencies": {
     "prettier": "^2.7.1"
   }
