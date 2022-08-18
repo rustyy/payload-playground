@@ -1,7 +1,8 @@
-import { buildConfig } from 'payload/config';
 import path from 'path';
+import { buildConfig } from 'payload/config';
 import Examples from './collections/Examples';
 import Users from './collections/Users';
+import { pluginMiddleware } from './plugins/plugin-middleware';
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
@@ -15,4 +16,5 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
+  plugins: [pluginMiddleware({ someOption: 'hello' })],
 });
