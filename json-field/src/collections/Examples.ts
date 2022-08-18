@@ -11,7 +11,22 @@ const Examples: CollectionConfig = {
       name: 'someField',
       type: 'text',
     },
+    {
+      name: 'json',
+      type: 'code',
+      admin: {
+        language: 'json',
+      },
+      validate: (value) => {
+        try {
+          JSON.parse(value);
+          return true;
+        } catch (e) {
+          return 'Invalid JSON';
+        }
+      },
+    },
   ],
-}
+};
 
 export default Examples;
