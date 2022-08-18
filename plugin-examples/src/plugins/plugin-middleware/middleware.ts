@@ -1,4 +1,3 @@
-// Configurable middleware.
 import { NextFunction, Response } from 'express';
 import { PayloadRequest } from 'payload/types';
 
