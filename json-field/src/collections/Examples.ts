@@ -1,4 +1,10 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig, FieldHook } from 'payload/types';
+
+const afterRead: FieldHook = (args) => {
+  console.log(args.req);
+
+  return args.value;
+};
 
 // Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const Examples: CollectionConfig = {
@@ -24,6 +30,9 @@ const Examples: CollectionConfig = {
         } catch (e) {
           return 'Invalid JSON';
         }
+      },
+      hooks: {
+        afterRead: [afterRead],
       },
     },
   ],
