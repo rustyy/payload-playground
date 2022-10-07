@@ -9,16 +9,19 @@ app.get('/', (_, res) => {
   res.redirect('/admin');
 });
 
+const mongodbURI = new URL(process.env.MONGODB_URI);
+mongodbURI.pathname = process.env.MONGODB_DB_NAME;
+
 // Initialize Payload
 payload.init({
   secret: process.env.PAYLOAD_SECRET,
-  mongoURL: process.env.MONGODB_URI,
+  mongoURL: mongodbURI.href,
   express: app,
   onInit: () => {
-    payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
+    payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
   },
-})
+});
 
 // Add your own express routes here
 
-app.listen(3000);
+app.listen(process.env.PORT);
