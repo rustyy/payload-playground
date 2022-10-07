@@ -8,7 +8,7 @@ export const CollectionB: CollectionConfig = {
     useAsTitle: 'title',
   },
   access: {
-    read: accessControl('b'),
+    read: accessControl('b', 'user'),
   },
   hooks: {
     beforeChange: [addCreatedBy],

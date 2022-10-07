@@ -8,20 +8,27 @@ import { isRole, Role } from './roles';
  * and is creator of an entity.
  */
 export const accessControl =
-  (role: Role): Access =>
+  (...roles: Role[]): Access =>
   ({ req: { user } }) => {
-    // no user, no access or unsupported role provided.
-    if (!user || !isRole(role)) {
+    const currentUserRole = user.role;
+
+    // no user or role, no access.
+    if (!user || !user.role) {
       return false;
     }
 
-    // Grant access for admin users.
-    if (user.role === 'admin') {
-      return true;
-    }
+    if (isRole(currentUserRole)) {
+      // Grant access for admin users.
+      if (currentUserRole === 'admin') {
+        return true;
+      }
 
-    // Scope collection to a specific role.
-    if (user.role !== role) {
+      // Scope collection to specific roles.
+      if (!roles.includes(currentUserRole)) {
+        return false;
+      }
+    } else {
+      // Unsupported role provided by user object.
       return false;
     }
 
